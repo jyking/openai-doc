@@ -1,11 +1,9 @@
-# Introduction
+# 介绍
+## 概述
+OpenAI API 可应用于理解或生成自然语言、代码或图像的几乎所有任务。我们提供一系列不同功率级别的模型，适用于不同的任务，并具有微调自定义模型的能力。这些模型可以用于从内容生成到语义搜索和分类的一切。
 
-## Overview
+## 关键概念
+我们建议完成我们的快速入门教程，通过实践交互式实例熟悉关键概念。
 
-The OpenAI API can be applied to virtually any task that involves understanding or generating natural language, code, or images. We offer a spectrum of models with different levels of power suitable for different tasks, as well as the ability to fine-tune your own custom models. These models can be used for everything from content generation to semantic search and classification.
-
-## Key concepts
-We recommend completing our quickstart tutorial to get acquainted with key concepts through a hands-on, interactive example.
-
-## Prompts
-Designing your prompt is essentially how you “program” the model, usually by providing some instructions or a few examples. This is different from most other NLP services which are designed for a single task, such as sentiment classification or named entity recognition. Instead, the completions and chat completions endpoint can be used for virtually any task including content or code generation, summarization, expansion, conversation, creative writing, style transfer, and more.
+## 提示
+设计您的提示本质上是如何“编程”模型，通常是通过提供一些说明或几个示例。这与大多数其他 NLP 服务不同，这些服务设计用于单个任务，例如情感分类或命名实体识别。取而代之的是，在内容或代码生成、摘要、扩展、对话、创意写作、样式转换等几乎任何任务中，可以使用完成和聊天完成端点。"
