@@ -35,11 +35,13 @@ jobs:
       - name: Build VuePress site
         run: pnpm build
 
-      - name: Deploy to GitHub Pages
+      - name: Deploy gh branch
         uses: peaceiris/actions-gh-pages@v3
         with:
           branch: gh-pages
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./docs/.vuepress/dist
-          enable_jekyll: true
 
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
