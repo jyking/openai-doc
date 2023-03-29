@@ -9,8 +9,7 @@ on:
 
 jobs:
   docs:
-    runs-on: ubuntu-latest
-
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3
         with:
@@ -33,20 +32,11 @@ jobs:
           # 缓存 pnpm 依赖
           cache: pnpm
 
-      # 运行构建脚本
       - name: Build VuePress site
         run: pnpm build
 
-      # 查看 workflow 的文档来获取更多信息
-      # @see https://github.com/crazy-max/ghaction-github-pages
       - name: Deploy to GitHub Pages
-        if: success()
-        uses: crazy-max/ghaction-github-pages@v3
+        uses: JamesIves/github-pages-deploy-action@4.1.1
         with:
-          # 部署到 gh-pages 分支
-          target_branch: gh-pages
-          # 部署目录为 VuePress 的默认输出目录
-          build_dir: docs/.vuepress/dist
-        env:
-          # @see https://docs.github.com/cn/actions/reference/authentication-in-a-workflow#about-the-github_token-secret
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          branch: gh-pages
+          folder: docs/.vuepress/dist
