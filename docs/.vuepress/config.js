@@ -17,9 +17,16 @@ module.exports = {
         }
     },
     themeConfig: {
+        home: "/introduction",
+        nav: [
+            { text: "首页", link: "/" },
+            { text: "指南", link: "/introduction/" },
+        ],
         footer: {
-          author: '作者',
-          lastUpdated: '最后更新时间',
+            author: '作者',
+            lastUpdated: '最后更新时间',
         },
+        lastUpdated: true,
+        lastUpdatedText: "上次更新",
     }
 }
