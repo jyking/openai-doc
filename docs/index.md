@@ -1,1 +1,1 @@
-index
+cn-index
