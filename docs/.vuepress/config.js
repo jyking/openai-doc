@@ -1,40 +1,57 @@
 import { defaultTheme } from 'vuepress'
 
-module.exports = {
+export default {
     base: '/openai-doc/',
     lang: 'zh-CN',
     title: 'OpenAI 中文文档',
     description: 'OpenAI 中文文档',
-    head: [
-        ['link', { rel: 'icon', href: '/favicon.ico' }]
-    ],
-    // locales: {
-    //     '/': {
-    //         lang: 'zh-CN',
-    //         title: 'OpenAI 中文文档',
-    //         description: 'OpenAI 中文文档',
-    //         selectLanguageName: '简体中文',
-    //     }
-    // },
-    themeConfig: {
-        home: "/introduction",
-        nav: [
-            { text: "首页", link: "/" },
-            { text: "指南", link: "/introduction/" },
-        ],
-        footer: {
-            author: '作者',
-            lastUpdated: '最后更新时间',
+    locales: {
+        '/en/': {
+            lang: 'en-US',
         },
-        lastUpdated: true,
-        lastUpdatedText: "上次更新",
+        '/zh/': {
+            lang: 'zh-CN',
+        },
     },
-    sidebar: {
-        "/introduction/": [
-            {
-                text: "快速上手",
-                children: ["/introduction/getting-started.md"],
+    theme: defaultTheme({
+        locales: {
+            '/en/': {
+                selectLanguageName: 'English',
+                selectLanguageText: 'Languages',
+                title: 'OpenAI Documentation',
+                description: 'OpenAI Documentation',
+                navbar: [
+                    { text: "introduction", link: "/en/introduction/" },
+                ],
+                sidebar: {
+                    '/en/introduction/': [
+                        {
+                            text: 'GET STARTED',
+                            children: [
+                                { text: 'introduction', link: '/en/introduction/' },
+                            ],
+                        }
+                    ],
+                }
             },
-        ],
-    },
+            '/zh/': {
+                selectLanguageName: '简体中文',
+                selectLanguageText: '选择语言',
+                navbar: [
+                    { text: "介绍", link: "/zh/introduction/" },
+                ],
+                sidebar: {
+                    '/zh/introduction/': [
+                        {
+                            text: '起步',
+                            children: [
+                                { text: '介绍', link: '/zh/introduction/' },
+                            ],
+                        }
+                    ],
+                }
+            },
+        },
+
+    }),
 }

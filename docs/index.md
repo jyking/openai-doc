@@ -1,1 +1,1 @@
-# cn-index
+# all-index
