@@ -8,14 +8,14 @@ module.exports = {
     head: [
         ['link', { rel: 'icon', href: '/favicon.ico' }]
     ],
-    locales: {
-        '/': {
-            lang: 'zh-CN',
-            title: 'OpenAI 中文文档',
-            description: 'OpenAI 中文文档',
-            selectLanguageName: '简体中文',
-        }
-    },
+    // locales: {
+    //     '/': {
+    //         lang: 'zh-CN',
+    //         title: 'OpenAI 中文文档',
+    //         description: 'OpenAI 中文文档',
+    //         selectLanguageName: '简体中文',
+    //     }
+    // },
     themeConfig: {
         home: "/introduction",
         nav: [
@@ -28,5 +28,13 @@ module.exports = {
         },
         lastUpdated: true,
         lastUpdatedText: "上次更新",
-    }
+    },
+    sidebar: {
+        "/introduction/": [
+            {
+                text: "快速上手",
+                children: ["/introduction/getting-started.md"],
+            },
+        ],
+    },
 }
