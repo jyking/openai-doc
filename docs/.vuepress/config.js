@@ -3,14 +3,17 @@ import { defaultTheme } from 'vuepress'
 export default {
     base: '/openai-doc/',
     lang: 'zh-CN',
-    title: 'OpenAI 中文文档',
-    description: 'OpenAI 中文文档',
     locales: {
         '/en/': {
             lang: 'en-US',
+            title: 'OpenAI Documentation',
+            description: 'OpenAI Documentation',
+            
         },
         '/zh/': {
             lang: 'zh-CN',
+            title: 'OpenAI 中文文档',
+            description: 'OpenAI 中文文档',
         },
     },
     theme: defaultTheme({
@@ -18,8 +21,8 @@ export default {
             '/en/': {
                 selectLanguageName: 'English',
                 selectLanguageText: 'Languages',
-                title: 'OpenAI Documentation',
-                description: 'OpenAI Documentation',
+                contributorsText: 'Contributors',
+                lastUpdatedText: 'Last Updated',
                 navbar: [
                     { text: "introduction", link: "/en/introduction/" },
                 ],
@@ -37,6 +40,8 @@ export default {
             '/zh/': {
                 selectLanguageName: '简体中文',
                 selectLanguageText: '选择语言',
+                contributorsText: '贡献者',
+                lastUpdatedText: '上次更新',
                 navbar: [
                     { text: "介绍", link: "/zh/introduction/" },
                 ],
