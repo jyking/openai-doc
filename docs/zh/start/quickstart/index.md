@@ -1,20 +1,12 @@
-# 快速开始
-OpenAI has trained cutting-edge language models that are very good at understanding and generating text. Our API provides access to these models and can be used to solve virtually any task that involves processing language.
+# 快速入门
 
-In this quickstart tutorial, you’ll build a simple sample application. Along the way, you’ll learn key concepts and techniques that are fundamental to using the API for any task, including:
+OpenAI已经训练了先进的语言模型，非常擅长理解和生成文本。我们的API提供对这些模型的访问，并可用于解决几乎涉及处理语言的任何任务。
 
-- Content generation
-- Summarization
-- Classification, categorization, and sentiment analysis
-- Data extraction
-- Translation
-- Many more!
+在此快速入门教程中，您将构建一个简单的示例应用程序。在此过程中，您将学习到使用API执行任何任务所必需的关键概念和技术，包括：
 
-## 介绍
-The completions endpoint is the core of our API and provides a simple interface that’s extremely flexible and powerful. You input some text as a prompt, and the API will return a text completion that attempts to match whatever instructions or context you gave it.
-
-Prompt
-Write a tagline for an ice cream shop.
-Completion
-We serve up smiles with every scoop!
-You can think of this as a very advanced autocomplete — the model processes your text prompt and tries to predict what’s most likely to come next.
+- 内容生成
+- 摘要
+- 分类、归类和情感分析
+- 数据提取
+- 翻译
+- 还有更多！
