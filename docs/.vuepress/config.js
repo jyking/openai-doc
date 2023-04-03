@@ -43,10 +43,21 @@ export default {
                 contributorsText: '贡献者',
                 lastUpdatedText: '上次更新',
                 navbar: [
-                    { text: "介绍", link: "/zh/" },
+                    { text: "文档", link: "/zh/start/introduction/" },
+                    { text: "API 参考", link: "/zh/api-reference/" },
                 ],
                 sidebar: {
-                    '/zh/': [
+                    '/zh/api-reference/': [
+                        {
+                            text: '起步',
+                            children: [
+                                { text: '介绍', link: '/zh/start/introduction/' },
+                                { text: '快速开始', link: '/zh/start/quickstart/' },
+                                { text: '库文件', link: '/zh/start/libraries/' },
+                            ],
+                        },
+                    ],
+                    '/zh/start/': [
                         {
                             text: '起步',
                             children: [
