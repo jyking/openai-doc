@@ -8,7 +8,6 @@ export default {
             lang: 'en-US',
             title: 'OpenAI Documentation',
             description: 'OpenAI Documentation',
-            
         },
         '/zh/': {
             lang: 'zh-CN',
@@ -42,6 +41,7 @@ export default {
                 selectLanguageText: '选择语言',
                 contributorsText: '贡献者',
                 lastUpdatedText: '上次更新',
+                home: '/zh/start/introduction/',
                 navbar: [
                     { text: "文档", link: "/zh/start/introduction/" },
                     { text: "API 参考", link: "/zh/api-reference/" },
