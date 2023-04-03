@@ -84,3 +84,78 @@ OpenAI已经训练了先进的语言模型，非常擅长理解和生成文本�
 >深入了解令牌和概率
 
 对于您的宠物名字生成器，您可能希望能够生成许多名称想法。0.6 的适度温度应该效果良好。
+
+## 构建您的应用程序
+
+现在你已经找到了一个好的提示和设置，准备构建你的宠物名字生成器！我们编写了一些代码来帮助你入门 - 按照下面的说明下载代码并运行应用程序。
+
+## 安装
+
+如果您没有安装Node.js，请从此处安装。然后通过克隆此存储库来下载代码。
+
+>https://github.com/openai/openai-quickstart-node.git
+
+如果您不想使用git，您可以通过此zip文件下载代码。
+
+## 添加您的 API 密钥
+
+为了让应用程序正常工作，您需要一个 API 密钥。您可以注册一个帐户并返回此页面来获取密钥。
+
+## 运行应用程序
+
+在项目目录中运行以下命令以安装依赖项并运行应用程序。
+```
+npm安装
+运行开发环境
+```
+在您的浏览器中打开http://localhost:3000，您应该会看到宠物名字生成器！
+
+## 了解代码
+
+打开openai-quickstart-node/pages/api文件夹中的generate.js。在底部，您将看到生成我们上面使用的提示的函数。由于用户将输入宠物类型，因此它会动态替换指定动物部分的提示。
+
+
+```
+function generatePrompt(animal) {
+  const capitalizedAnimal = animal[0].toUpperCase() + animal.slice(1).toLowerCase();
+  return `Suggest three names for an animal that is a superhero.
+
+Animal: Cat
+Names: Captain Sharpclaw, Agent Fluffball, The Incredible Feline
+Animal: Dog
+Names: Ruff the Protector, Wonder Canine, Sir Barks-a-Lot
+Animal: ${capitalizedAnimal}
+Names:`;
+}
+```
+
+在 generate.js 的第9行，您将看到发送实际 API 请求的代码。如上所述，它使用温度为0.6的完成端点。
+
+
+```
+const completion = await openai.createCompletion({
+  model: "text-davinci-003",
+  prompt: generatePrompt(req.body.animal),
+  temperature: 0.6,
+});
+```
+
+就是这样！现在你应该完全了解你的（超级英雄）宠物名字生成器如何使用OpenAI API了！
+
+## 结束
+
+这些概念和技术将有助于您构建自己的应用程序。话虽如此，这个简单的例子只展示了可能性的一小部分！完成端点足够灵活，可以解决几乎任何语言处理任务，包括内容生成、摘要、语义搜索、主题标记、情感分析等等。
+
+需要注意的一个限制是，在大多数模型中，单个API请求只能在提示和完成之间处理最多2048个令牌（大约1500个单词）。
+
+```
+深度挖掘
+
+模型和定价
+
+我们提供一系列具有不同功能和价格点的模型。在本教程中，我们使用了text-davinci-003，这是我们最强大的自然语言模型。我们建议在实验时使用此模型，因为它将产生最佳结果。一旦您让事情开始运作起来，您可以查看其他模型是否能以更低的延迟和成本产生相同的结果。
+
+单个请求（提示和完成）处理的令牌总数不能超过该模型的最大上下文长度。对于大多数模型而言，这是2,048个标记或约1,500个单词。粗略地说，一个标记约等于4个字符或0.75个英文单词。
+
+按每1,000个令牌计费，并提供$5免费信用额度，在前3个月内可用。了解更多信息。
+```
