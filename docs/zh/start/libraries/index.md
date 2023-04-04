@@ -51,5 +51,107 @@ const response = await openai.createCompletion({
 
 以下的图书馆是由更广泛的开发者社区建立和维护的。如果您想在此处添加新库，请按照我们帮助中心文章中关于添加社区库的说明进行操作。
 
+
 请注意，OpenAI不验证这些项目的正确性或安全性。
+
+
+## C# / .NET
+
+
+Betalgo.OpenAI.GPT3 由 Betalgo 提供
+
+OpenAI-API-dotnet 由 OkGoDoIt 提供
+
+
+## Crystal
+
+openai-crystal 由 sferik 提供
+
+
+## Go
+
+
+go-gpt3 由 sashabaranov 提供
+
+
+## Java
+
+
+openai-java 由 Theo Kanning 提供
+
+
+## Kotlin
+
+
+openai-kotlin 由 Mouaad Aallam 提供
+
+
+## Node.js
+
+
+openai-api 由 Njerschow提供
+
+openai-api-node by erlapso提供
+
+gpt-x by ceifa提供
+
+gpt3 by poteat提供
+
+gpts by thencc提供
+
+@dalenguyen/openai by dalenguyen提供
+
+tectalic/openai by tectalic提供
+
+
+## PHP
+
+
+orhanerday/open-ai by orhanerday提供
+
+tectalic/openai by tectalic提供
+
+
+## Python
+
+
+chronology by OthersideAI 提交
+
+
+## R
+
+
+rgpt3 由 ben-aaron188提交
+
+
+## Ruby
+
+
+nileshtrivedi提交的 openai
+
+ruby-opena i是alexrudall提交的
+
+
+## Scala
+
+
+cequence-io提交的 open ai-scala-client
+
+
+## Swift
+
+
+dylanshine 的 OpenAIKit
+
+
+## Unity
+
+
+hexthedev 的 OpenAi-Api-Unity
+
+
+## Unreal Engine
+
+
+KellanM 的 OpenAI-Api-Unreal
 
