@@ -108,7 +108,7 @@ export default {
                             collapsible: true,
                             activeMatch: "^/zh/api-reference/",
                             children: [
-                                { text: '介绍', link: '/zh/api-reference/', icon: 'cogs' },
+                                { text: '介绍', link: '/zh/api-reference/', icon: 'book' },
                             ],
                         },
                     ],
