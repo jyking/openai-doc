@@ -1,5 +1,53 @@
-# 聊天插件
-Learn how to build a plugin that allows ChatGPT to intelligently call your API.
+# 聊天插件 Limited Alpha
+
+学习如何构建一个插件，使ChatGPT能够智能地调用您的API。
 
 ## 介绍
-OpenAI plugins connect ChatGPT to third-party applications. These plugins enable ChatGPT to interact with APIs defined by developers, enhancing ChatGPT's capabilities and allowing it to perform a wide range of actions.
+
+OpenAI插件将ChatGPT连接到第三方应用程序。这些插件使ChatGPT能够与开发人员定义的API进行交互，增强了ChatGPT的功能，并允许它执行各种操作。
+
+- 插件可以让ChatGPT做以下事情：
+- 检索实时信息；例如体育比分、股票价格、最新新闻等。
+- 检索知识库信息；例如公司文档、个人笔记等。
+- 代表用户执行操作；例如预订航班、订购食品等。
+
+>插件目前处于有限的 alpha 版本，可能还无法访问。请加入等待列表以获得访问权限。在 alpha 版本期间，我们将与用户和开发人员密切合作，迭代插件系统，并且该系统可能会有重大变化。
+
+插件开发者公开一个或多个API端点，附带标准化的清单文件和OpenAPI规范。这些定义了插件的功能，允许ChatGPT消费文件并调用开发人员定义的API。
+
+AI模型作为智能API调用器。给定API规范和自然语言描述何时使用该API，模型主动调用该API执行操作。例如，如果用户问“在巴黎住几个晚上应该住哪里？”，则模型可能选择调用酒店预订插件API、接收API响应，并生成结合了 API数据和其自然语言能力的面向用户的答案。
+
+随着时间推移，我们预计系统将逐渐演变以适应更高级别的使用情况。
+
+### 插件流程
+
+构建插件时，了解端到端的流程非常重要。
+
+1. 创建一个清单文件并将其托管在yourdomain.com/.well-known/ai-plugin.json
+
+- 该文件包括有关您的插件（名称、标志等）的元数据，所需身份验证的详细信息（身份验证类型、OAuth URL 等），以及您想要公开的端点的 OpenAPI 规范。
+- 模型将查看 OpenAPI 描述字段，这些字段可用于为不同字段提供自然语言描述。
+- 我们建议一开始只公开 1-2 个端点，并使用最少数量的参数来使文本长度最小化。插件说明、API 请求和 API 响应都会被插入到与 ChatGPT 的对话中。这会影响模型上下文限制。
+
+2. 在ChatGPT UI中注册您的插件
+
+- 从顶部下拉菜单中选择插件模型，然后选择“插件”、“插件商店”，最后选择“安装未经验证的插件”或“开发自己的插件”。
+- 如果需要身份验证，请提供OAuth 2 client_id和client_secret或API密钥。
+
+3. 用户激活您的插件
+
+- 用户必须在ChatGPT UI中手动激活您的插件。（ChatGPT不会默认使用您的插件。）
+- 在alpha测试期间，插件开发人员将能够与15个其他用户共享其插件（目前只有其他开发人员可以安装未经验证的插件）。随着时间推移，我们将推出一种提交您的插件进行审核以向所有ChatGPT用户公开展示的方式。
+- 如果需要认证，则用户将通过OAuth重定向到您的插件； 您还可以选择在此处创建新帐户。
+- 未来，我们希望构建功能来帮助用户发现有用和受欢迎的插件。
+
+4. 用户开始对话
+
+- OpenAI将在向ChatGPT发送的消息中注入您插件的简要描述，这对终端用户是不可见的。其中包括插件描述、端点和示例。
+- 当用户提出相关问题时，如果看起来相关，模型可能会选择调用您插件的API调用；对于POST请求，我们要求开发人员构建一个用户确认流程。
+- 模型将把API结果合并到其响应中以回答用户。
+- 模型可能会在其响应中包含从API调用返回的链接。这些链接将显示为丰富预览（使用OpenGraph协议，在此我们提取site_name、title、description、image和url字段）。
+
+目前，我们将在插件对话标题中发送用户的国家和州（例如，如果您在加利福尼亚州，则会显示为`{"openai-subdivision-1-iso-code": "US-CA"}`）。对于进一步的数据来源，用户必须通过同意屏幕选择加入。这对购物、餐厅、天气等方面非常有用。您可以在我们的开发者使用条款中阅读更多信息。
+
+
