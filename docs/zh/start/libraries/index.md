@@ -1,4 +1,6 @@
-# Python库
+# 图书馆
+
+## Python库
 
 我们提供一个Python库，您可以按照以下步骤安装：
 
@@ -55,103 +57,104 @@ const response = await openai.createCompletion({
 请注意，OpenAI不验证这些项目的正确性或安全性。
 
 
-## C# / .NET
+### C# / .NET
+
+- Betalgo.OpenAI.GPT3 by Betalgo
+
+- Betalgo 的 Betalgo.OpenAI.GPT3
+
+- OpenAI-API-dotnet by OkGoDoIt
 
 
-Betalgo.OpenAI.GPT3 由 Betalgo 提供
+### Crystal
 
-OpenAI-API-dotnet 由 OkGoDoIt 提供
-
-
-## Crystal
-
-openai-crystal 由 sferik 提供
+- openai-crystal 由 sferik 提供
 
 
-## Go
+### Go
 
 
-go-gpt3 由 sashabaranov 提供
+- go-gpt3 由 sashabaranov 提供
 
 
-## Java
+### Java
 
 
-openai-java 由 Theo Kanning 提供
+- openai-java 由 Theo Kanning 提供
 
 
-## Kotlin
+### Kotlin
 
 
-openai-kotlin 由 Mouaad Aallam 提供
+- openai-kotlin 由 Mouaad Aallam 提供
 
 
-## Node.js
+### Node.js
 
 
-openai-api 由 Njerschow提供
+- openai-api 由 Njerschow提供
 
-openai-api-node by erlapso提供
+- openai-api-node by erlapso提供
 
-gpt-x by ceifa提供
+- gpt-x by ceifa提供
 
-gpt3 by poteat提供
+- gpt3 by poteat提供
 
-gpts by thencc提供
+- gpts by thencc提供
 
-@dalenguyen/openai by dalenguyen提供
+- @dalenguyen/openai by dalenguyen提供
 
-tectalic/openai by tectalic提供
-
-
-## PHP
+- tectalic/openai by tectalic提供
 
 
-orhanerday/open-ai by orhanerday提供
-
-tectalic/openai by tectalic提供
+### PHP
 
 
-## Python
+- orhanerday/open-ai by orhanerday提供
+
+- tectalic/openai by tectalic提供
 
 
-chronology by OthersideAI 提交
+### Python
 
 
-## R
+- chronology by OthersideAI 提交
 
 
-rgpt3 由 ben-aaron188提交
+### R
 
 
-## Ruby
+- rgpt3 由 ben-aaron188提交
 
 
-nileshtrivedi提交的 openai
-
-ruby-opena i是alexrudall提交的
+### Ruby
 
 
-## Scala
+- nileshtrivedi提交的 openai
+
+- ruby-opena i是alexrudall提交的
 
 
-cequence-io提交的 open ai-scala-client
+### Scala
 
 
-## Swift
+- cequence-io提交的 open ai-scala-client
 
 
-dylanshine 的 OpenAIKit
+### Swift
 
 
-## Unity
+- dylanshine 的 OpenAIKit
 
 
-hexthedev 的 OpenAi-Api-Unity
+### Unity
 
 
-## Unreal Engine
+- hexthedev 的 OpenAi-Api-Unity
 
 
-KellanM 的 OpenAI-Api-Unreal
+### Unreal Engine
+
+
+- KellanM 的 OpenAI-Api-Unreal
 
