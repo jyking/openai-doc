@@ -33,7 +33,7 @@ OpenAI的文本嵌入测量文本字符串之间的相关性。 嵌入通常用�
 浏览示例
 ```
 
-## 如何获取嵌入
+### 如何获取嵌入
 
 要获取嵌入，将您的文本字符串发送到嵌入API端点，并选择一个嵌入模型ID（例如`text-embedding-ada-002`）。响应将包含一个嵌入，您可以提取、保存和使用。
 
@@ -115,11 +115,10 @@ text-embedding-ada-002 | cl100k_base | 8191 | 1536
 ### 获取嵌入
 该数据集包含截至2012年10月亚马逊用户留下的共计568,454条食品评论。我们将使用最近1,000条评论的子集进行说明。这些评论是用英语撰写的，往往是积极或消极的。每个评论都有一个产品ID、用户ID、评分、评论标题（摘要）和评论正文（文本）。例如：
 
-产品ID  用户ID   得分   摘要  正文
-
-B001E4KFG0  A3SGXH7AUHU8GW  5  优质的狗粮我已经买了几罐活力罐头...
-
-B00813GRG4  A1D87F6ZCVE5NK  1  不如广告描述该产品标签上写着巨型盐腌花生...
+产品ID | 用户ID |  得分  | 摘要  |正文
+--|--|--|--|--
+B001E4KFG0 | A3SGXH7AUHU8GW|  5 | 优质的狗粮| 我已经买了几罐活力罐头...
+B00813GRG4 | A1D87F6ZCVE5NK|  1 | 不如广告描述 |该产品标签上写着巨型盐腌花生...
 
 ```
 def get_embedding(text, model="text-embedding-ada-002"):
@@ -145,15 +144,15 @@ df['ada_embedding'] = df.ada_embedding.apply(eval).apply(np.array)
 
 我们根据评论者给出的星级评分对每篇评论进行着色：
 
-1星：红色
+- 1星：红色
 
-2星：深橙色
+- 2星：深橙色
 
-3星：金色
+- 3星：金色
 
-4星：青绿色
+- 4星：青绿色
 
-5星：深绿色
+- 5星：深绿色
 
 
 
@@ -265,7 +264,7 @@ res = search_reviews(df, 'delicious beans', n=3)
 
 ### 使用嵌入进行代码搜索
 
-代码搜索与基于嵌入的文本搜索类似。我们提供一种方法，从给定代码库中的所有Python文件中提取Python函数。然后，每个函数都由text-embedding-ada-002模型进行索引。
+代码搜索与基于嵌入的文本搜索类似。我们提供一种方法，从给定代码库中的所有Python文件中提取Python函数。然后，每个函数都由`text-embedding-ada-002`模型进行索引。
 
 要执行代码搜索，我们使用相同的模型将查询以自然语言形式嵌入。然后，我们计算结果查询嵌入和每个函数嵌入之间的余弦相似度。最高余弦相似度结果最相关。
 
@@ -331,15 +330,15 @@ def recommendations_from_strings(
 
 ### 对最近事件的无视
 
-限制：模型缺乏对2020年8月之后发生事件的了解。
+>限制：模型缺乏对2020年8月之后发生事件的了解。
 
 我们的模型是基于包含有关现实世界事件信息的数据集进行训练的，但仅限于2020年8月之前。如果您依赖这些模型来代表最近发生的事件，则它们可能表现不佳
 
-## 常见问题
+### 常见问题
 
 ### 如何在嵌入字符串之前确定它有多少个标记？
 
-在Python中，您可以使用OpenAI的分词器tiktoken将字符串拆分为标记。
+在Python中，您可以使用OpenAI的分词器`tiktoken`将字符串拆分为标记。
 
 示例代码：
 
@@ -355,7 +354,7 @@ def num_tokens_from_string(string: str, encoding_name: str) -> int:
 num_tokens_from_string("tiktoken is great!", "cl100k_base")
 ```
 
-对于像text-embedding-ada-002这样的第二代嵌入模型，请使用cl100k_base编码。
+对于像`text-embedding-ada-002`这样的第二代嵌入模型，请使用`cl100k_base`编码。
 
 更多细节和示例代码在OpenAI Cookbook指南中，介绍如何使用tiktoken计算标记。
 
@@ -365,17 +364,17 @@ num_tokens_from_string("tiktoken is great!", "cl100k_base")
 
 ### 可用的向量数据库选项包括：
 
-Pinecone，一个完全托管的向量数据库
+- Pinecone，一个完全托管的向量数据库
 
-Weaviate，一个开源矢量搜索引擎
+- Weaviate，一个开源矢量搜索引擎
 
-Redis作为矢量数据库
+- Redis作为矢量数据库
 
-Qdrant，一个矢量搜索引擎
+- Qdrant，一个矢量搜索引擎
 
-Milvus，专为可伸缩相似性搜索而构建的矢量数据库
+- Milvus，专为可伸缩相似性搜索而构建的矢量数据库
 
-Chroma，一个开源嵌入存储库
+- Chroma，一个开源嵌入存储库
 
 ### 我应该使用哪种距离函数？
 
