@@ -12,6 +12,8 @@
 
 浏览覆盖多种用例和身份验证方法的示例插件。
 
+## 插件清单
+
 每个插件都需要一个 `ai-plugin.json `文件，该文件需要托管在 API 的域名上。例如，一个名为 `example.com `的公司将使插件 JSON 文件通过 https://example.com 域名访问，因为这是他们的 API 所托管的地方。当您通过 ChatGPT UI 安装插件时，在后端我们会查找位于` /.well-known/ai-plugin.json `的文件。`/.well-known` 文件夹是必需的，并且必须存在于您的域中，以便 ChatGPT 与您的插件连接。如果没有找到文件，则无法安装插件。对于本地开发，可以使用 HTTP，但如果指向远程服务器，则需要使用 HTTPS。
 
 所需 `ai-plugin.json `文件的最小定义如下：
@@ -39,19 +41,19 @@
 
 如果您想查看插件文件的所有可能选项，可以参考下面的定义。
 
-领域	|  类型	|  描述/选项
---| --|--
-schema_version   |	String	|  清单模式版本
-name_for_model   |	String	|  用于定位插件的模型名称
-name_for_human   | 	String	| 人类可读的名称，例如完整公司名称
-description_for_model |	String |	更适合模型的描述，例如令牌上下文长度考虑或关键字使用以改进插件提示。
-description_for_human |	String |	插件的人类可读描述
-auth | ManifestAuth | 认证架构 
-api |	Object API | 规范 
-logo_url |  String |  用于获取插件徽标的 URL 
-contact_email  | String|  安全/调节、支持和停用联系电子邮件 
-legal_info_url | String | 用户查看插件信息的重定向 URL 
-HttpAuthorizationType |	HttpAuthorizationType |"bearer" 或 "basic"
+领域	|  类型	|  描述/选项| 必要的
+--| --|--|--
+schema_version   |	String	|  清单模式版本 | ✅
+name_for_model   |	String	|  用于定位插件的模型名称 |✅
+name_for_human   | 	String	| 人类可读的名称，例如完整公司名称 |✅
+description_for_model |	String |	更适合模型的描述，例如令牌上下文长度考虑或关键字使用以改进插件提示。|✅
+description_for_human |	String |	插件的人类可读描述 |✅
+auth | ManifestAuth | 认证架构 |✅
+api |	Object API | 规范 |✅
+logo_url |  String |  用于获取插件徽标的 URL |✅
+contact_email  | String|  安全/调节、支持和停用联系电子邮件 |✅
+legal_info_url | String | 用户查看插件信息的重定向 URL |✅
+HttpAuthorizationType |	HttpAuthorizationType |"bearer" 或 "basic"|✅
 ManifestAuthType | ManifestAuthType | "none"、"user_http"、"service_http" 或 "oauth"
 interface BaseManifestAuth |	BaseManifestAuth	| type: ManifestAuthType; instructions: string;
 ManifestNoAuth | ManifestNoAuth | 不需要身份验证：BaseManifestAuth 和 {type:'none',}
