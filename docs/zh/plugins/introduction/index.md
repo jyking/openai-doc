@@ -23,7 +23,7 @@ AI模型作为智能API调用器。给定API规范和自然语言描述何时使
 
 构建插件时，了解端到端的流程非常重要。
 
-1. 创建一个清单文件并将其托管在yourdomain.com/.well-known/ai-plugin.json
+1. 创建一个清单文件并将其托管在`yourdomain.com/.well-known/ai-plugin.json`
 
 - 该文件包括有关您的插件（名称、标志等）的元数据，所需身份验证的详细信息（身份验证类型、OAuth URL 等），以及您想要公开的端点的 OpenAPI 规范。
 - 模型将查看 OpenAPI 描述字段，这些字段可用于为不同字段提供自然语言描述。
