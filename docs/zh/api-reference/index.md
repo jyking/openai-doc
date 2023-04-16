@@ -1,4 +1,4 @@
-# 介绍
+## 介绍
 
 您可以通过 HTTP 请求从任何语言与 API 进行交互，使用我们的官方 Python 绑定、官方 Node.js 库或社区维护的库。
 
@@ -10,7 +10,7 @@
 
 >npm install openai
 
-# 认证
+## 认证
 
 OpenAI API使用API密钥进行身份验证。访问您的API密钥页面以检索在请求中使用的API密钥。
 
@@ -56,7 +56,7 @@ const response = await openai.listEngines();
 
 组织 ID 可以在您的组织设置页面找到。
 
-# 发出请求
+## 发出请求
 
 您可以将以下命令粘贴到终端中以运行第一个API请求。请确保用您的秘密API密钥替换`$OPENAI_API_KEY`。
 
