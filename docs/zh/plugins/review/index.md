@@ -1180,7 +1180,579 @@ training_file 字符串 必填
 请查看微调指南以获取更多详细信息。
 
 ---
-validation_file
+validation_file 字符串 可选的
+
+上传的包含验证数据的文件ID。
+
+如果您提供此文件，则在微调期间会定期使用该数据生成验证指标。这些指标可以在微调结果文件中查看。您的训练和验证数据应该是互斥的。
+
+您的数据集必须格式化为JSONL文件，其中每个验证示例都是一个带有“prompt”和“completion”键的JSON对象。此外，您必须上传您的文件并注明其用途`fine-tune`。
+
+请查看微调指南以获取更多详细信息。
+
+---
+model 字符串 可选项 默认为curie
+
+要微调的基础模型名称。您可以选择其中之一："ada"、"babbage"、"curie"、"davinci"，或2022年4月21日后创建的经过微调的模型。要了解这些模型的更多信息，请参阅“Models”文档。
+
+---
+n_epochs 整数 可选项 默认为4
+
+训练模型的时期数。一个时期指的是完整地遍历一次训练数据集。
+
+---
+batch_size 整数 可选项 默认值为null
+
+用于训练的批次大小。 批次大小是用于训练单个前向和后向传递的训练示例数量。
+
+默认情况下，批处理大小将动态配置为训练集中示例数的约0.2％，上限为256-通常我们发现较大的数据集更适合使用较大的批量大小。
+
+---
+learning_rate_multiplier 数字 可选的 默认为 null
+
+用于训练的学习率倍增器。微调学习率是预训练时使用的原始学习率乘以此值得到的。
+
+默认情况下，学习率的倍增器为0.05、0.1或0.2，具体取决于最终结果`batch_size`（较大的学习率往往在较大的批量大小下表现更好）。我们建议尝试使用0.02到0.2范围内的值，以查看哪些值能够产生最佳结果。
+
+---
+prompt_loss_weight 数字 可选项 默认为0.01
+
+用于在提示标记上进行减重的权重。这控制了模型尝试学习生成提示的程度（与始终具有1.0权重的完成相比），并且可以在完成很短时为训练添加稳定效果。
+
+如果提示非常长（相对于完成而言），则降低此权重可能是有意义的，以避免过度优先考虑学习提示。
+
+---
+compute_classification_metrics 布尔值 可选的 默认为false
+
+如果设置了，我们会在每个 epoch 结束时使用验证集计算特定于分类的指标，例如准确率和 F-1 分数。这些指标可以在结果文件中查看。
+
+为了计算分类指标，您必须提供一个`validation_file`.此外，您必须指定`classification_n_classes`用于多类分类或`classification_positive_class`用于二元分类。
+
+---
+classification_n_classes 整数 可选项 默认值为null
+
+分类任务中的类别数量。
+
+这个参数在多分类任务中是必需的。
+
+---
+classification_positive_class 字符串 可选的 默认值为null
+
+二元分类中的正类。
+
+在进行二元分类时，需要此参数来生成精确度、召回率和 F1 指标。
+
+---
+classification_betas 数组 可选的 默认值为null
+
+如果提供了这个参数，我们会在指定的beta值上计算F-beta分数。F-beta分数是F-1分数的一般化。这仅用于二元分类。
+
+当beta为1时（即F-1分数），精确度和召回率被赋予相同的权重。较大的beta值更加注重召回率而不是精确度。较小的beta值更加注重精确度而不是召回率。
+
+---
+suffix 字符串 可选的 默认值为null
+
+最多40个字符的字符串，将添加到您的微调模型名称中。
+
+例如，一个`suffix`为“custom-model-name”的模型名称将生成类似于的模型名称`ada:ft-your-org:custom-model-name-2022-02-15-04-21-04`.
+
+```
+curl https://api.openai.com/v1/fine-tunes \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $OPENAI_API_KEY" \
+  -d '{
+    "training_file": "file-XGinujblHPwGLSztz8cPS8XY"
+  }'
+
+```
+
+```
+{
+  "id": "ft-AF1WoRqd3aJAHsqc9NY7iL8F",
+  "object": "fine-tune",
+  "model": "curie",
+  "created_at": 1614807352,
+  "events": [
+    {
+      "object": "fine-tune-event",
+      "created_at": 1614807352,
+      "level": "info",
+      "message": "Job enqueued. Waiting for jobs ahead to complete. Queue number: 0."
+    }
+  ],
+  "fine_tuned_model": null,
+  "hyperparams": {
+    "batch_size": 4,
+    "learning_rate_multiplier": 0.1,
+    "n_epochs": 4,
+    "prompt_loss_weight": 0.1,
+  },
+  "organization_id": "org-...",
+  "result_files": [],
+  "status": "pending",
+  "validation_files": [],
+  "training_files": [
+    {
+      "id": "file-XGinujblHPwGLSztz8cPS8XY",
+      "object": "file",
+      "bytes": 1547276,
+      "created_at": 1610062281,
+      "filename": "my-data-train.jsonl",
+      "purpose": "fine-tune-train"
+    }
+  ],
+  "updated_at": 1614807352,
+}
+
+```
+
+## 列表微调
+
+>https://api.openai.com/v1/fine-tunes
+
+列出您的组织的微调工作。
+
+```
+curl https://api.openai.com/v1/fine-tunes \
+  -H "Authorization: Bearer $OPENAI_API_KEY"
+
+```
+
+```
+{
+  "object": "list",
+  "data": [
+    {
+      "id": "ft-AF1WoRqd3aJAHsqc9NY7iL8F",
+      "object": "fine-tune",
+      "model": "curie",
+      "created_at": 1614807352,
+      "fine_tuned_model": null,
+      "hyperparams": { ... },
+      "organization_id": "org-...",
+      "result_files": [],
+      "status": "pending",
+      "validation_files": [],
+      "training_files": [ { ... } ],
+      "updated_at": 1614807352,
+    },
+    { ... },
+    { ... }
+  ]
+}
+
+```
+
+## 检索微调
+
+>https://api.openai.com/v1/fine-tunes/{fine_tune_id}
+
+获取有关微调作业的信息。
+
+### 路径参数
+
+---
+fine_tune_id 字符串 必填
+
+微调作业的ID
+
+```
+curl https://api.openai.com/v1/fine-tunes/ft-AF1WoRqd3aJAHsqc9NY7iL8F \
+  -H "Authorization: Bearer $OPENAI_API_KEY"
+
+```
+
+```
+{
+  "id": "ft-AF1WoRqd3aJAHsqc9NY7iL8F",
+  "object": "fine-tune",
+  "model": "curie",
+  "created_at": 1614807352,
+  "events": [
+    {
+      "object": "fine-tune-event",
+      "created_at": 1614807352,
+      "level": "info",
+      "message": "Job enqueued. Waiting for jobs ahead to complete. Queue number: 0."
+    },
+    {
+      "object": "fine-tune-event",
+      "created_at": 1614807356,
+      "level": "info",
+      "message": "Job started."
+    },
+    {
+      "object": "fine-tune-event",
+      "created_at": 1614807861,
+      "level": "info",
+      "message": "Uploaded snapshot: curie:ft-acmeco-2021-03-03-21-44-20."
+    },
+    {
+      "object": "fine-tune-event",
+      "created_at": 1614807864,
+      "level": "info",
+      "message": "Uploaded result files: file-QQm6ZpqdNwAaVC3aSz5sWwLT."
+    },
+    {
+      "object": "fine-tune-event",
+      "created_at": 1614807864,
+      "level": "info",
+      "message": "Job succeeded."
+    }
+  ],
+  "fine_tuned_model": "curie:ft-acmeco-2021-03-03-21-44-20",
+  "hyperparams": {
+    "batch_size": 4,
+    "learning_rate_multiplier": 0.1,
+    "n_epochs": 4,
+    "prompt_loss_weight": 0.1,
+  },
+  "organization_id": "org-...",
+  "result_files": [
+    {
+      "id": "file-QQm6ZpqdNwAaVC3aSz5sWwLT",
+      "object": "file",
+      "bytes": 81509,
+      "created_at": 1614807863,
+      "filename": "compiled_results.csv",
+      "purpose": "fine-tune-results"
+    }
+  ],
+  "status": "succeeded",
+  "validation_files": [],
+  "training_files": [
+    {
+      "id": "file-XGinujblHPwGLSztz8cPS8XY",
+      "object": "file",
+      "bytes": 1547276,
+      "created_at": 1610062281,
+      "filename": "my-data-train.jsonl",
+      "purpose": "fine-tune-train"
+    }
+  ],
+  "updated_at": 1614807865,
+}
+
+```
+
+## 取消微调
+
+>https://api.openai.com/v1/fine-tunes/{fine_tune_id}/cancel
+
+立即取消微调工作。
+
+### 路径参数
+
+---
+fine_tune_id 字符串 必填
+
+要取消微调作业的ID
+
+```
+curl https://api.openai.com/v1/fine-tunes/ft-AF1WoRqd3aJAHsqc9NY7iL8F/cancel \
+  -H "Authorization: Bearer $OPENAI_API_KEY"
+
+```
+
+```
+{
+  "id": "ft-xhrpBbvVUzYGo8oUO1FY4nI7",
+  "object": "fine-tune",
+  "model": "curie",
+  "created_at": 1614807770,
+  "events": [ { ... } ],
+  "fine_tuned_model": null,
+  "hyperparams": { ... },
+  "organization_id": "org-...",
+  "result_files": [],
+  "status": "cancelled",
+  "validation_files": [],
+  "training_files": [
+    {
+      "id": "file-XGinujblHPwGLSztz8cPS8XY",
+      "object": "file",
+      "bytes": 1547276,
+      "created_at": 1610062281,
+      "filename": "my-data-train.jsonl",
+      "purpose": "fine-tune-train"
+    }
+  ],
+  "updated_at": 1614807789,
+}
+
+```
+
+## 列出微调事件
+
+>https://api.openai.com/v1/fine-tunes/{fine_tune_id}/events
+
+获取微调作业的细粒度状态更新。
+
+### 路径参数
+
+fine_tune_id 字符串 必填
+
+获取事件的微调作业ID。
+
+### 查询参数
+
+---
+stream 布尔值 可选的 默认为false
+
+是否为微调作业流式传输事件。如果设置为true，则事件将作为仅数据的服务器推送事件随时发送。该流将以"结束符号"终止`data:[DONE]`当工作完成时的消息（成功、取消或失败）
+
+如果设置为false，则只返回到目前为止生成的事件。
+
+```
+curl https://api.openai.com/v1/fine-tunes/ft-AF1WoRqd3aJAHsqc9NY7iL8F/events \
+  -H "Authorization: Bearer $OPENAI_API_KEY"
+```
+
+```
+
+{
+  "object": "list",
+  "data": [
+    {
+      "object": "fine-tune-event",
+      "created_at": 1614807352,
+      "level": "info",
+      "message": "Job enqueued. Waiting for jobs ahead to complete. Queue number: 0."
+    },
+    {
+      "object": "fine-tune-event",
+      "created_at": 1614807356,
+      "level": "info",
+      "message": "Job started."
+    },
+    {
+      "object": "fine-tune-event",
+      "created_at": 1614807861,
+      "level": "info",
+      "message": "Uploaded snapshot: curie:ft-acmeco-2021-03-03-21-44-20."
+    },
+    {
+      "object": "fine-tune-event",
+      "created_at": 1614807864,
+      "level": "info",
+      "message": "Uploaded result files: file-QQm6ZpqdNwAaVC3aSz5sWwLT."
+    },
+    {
+      "object": "fine-tune-event",
+      "created_at": 1614807864,
+      "level": "info",
+      "message": "Job succeeded."
+    }
+  ]
+}
+```
+
+## 删除微调模型
+
+>https://api.openai.com/v1/models/{model}
+
+删除一个经过优化的模型。您必须在组织中拥有所有者角色。
+
+### 路径参数
+
+---
+model 字符串 必填
+
+要删除的模型
+
+```
+curl https://api.openai.com/v1/models/curie:ft-acmeco-2021-03-03-21-44-20 \
+  -X DELETE \
+  -H "Authorization: Bearer $OPENAI_API_KEY"
+```
+
+```
+{
+  "id": "curie:ft-acmeco-2021-03-03-21-44-20",
+  "object": "model",
+  "deleted": true
+}
+
+```
+
+# 内容审核
+
+给定输入文本，输出模型是否将其分类为违反OpenAI的内容政策。
+
+相关指南：内容审核
+
+## 创建管理
+
+>https://api.openai.com/v1/moderations
+
+分类判断文本是否违反OpenAI的内容政策
+
+### 请求正文
+
+---
+input 字符串或数组 必填
+
+要分类的输入文本
+
+---
+model 字符串 可选项 默认为text-moderation-latest
+
+有两个内容审核模型可用：`text-moderation-stable`和 `text-moderation-latest`。
+
+默认情况下，使用的是 `text-moderation-latest` 模型，该模型会随着时间自动升级。这确保您始终使用我们最准确的模型。如果您使用 `text-moderation-stable`，则在更新模型之前我们将提供高级通知。`text-moderation-stable `的准确性可能略低于 `text-moderation-latest`。
+
+```
+curl https://api.openai.com/v1/moderations \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $OPENAI_API_KEY" \
+  -d '{
+    "input": "I want to kill them."
+  }'
+```
+
+```
+{
+  "input": "I want to kill them."
+}
+```
+
+```
+{
+  "id": "modr-5MWoLO",
+  "model": "text-moderation-001",
+  "results": [
+    {
+      "categories": {
+        "hate": false,
+        "hate/threatening": true,
+        "self-harm": false,
+        "sexual": false,
+        "sexual/minors": false,
+        "violence": true,
+        "violence/graphic": false
+      },
+      "category_scores": {
+        "hate": 0.22714105248451233,
+        "hate/threatening": 0.4132447838783264,
+        "self-harm": 0.005232391878962517,
+        "sexual": 0.01407341007143259,
+        "sexual/minors": 0.0038522258400917053,
+        "violence": 0.9223177433013916,
+        "violence/graphic": 0.036865197122097015
+      },
+      "flagged": true
+    }
+  ]
+}
+```
+
+# 引擎
+
+>引擎端点已被弃用。
+
+>请使用它们的替代品模型。了解更多信息。
+
+这些端点描述并提供了API中可用的各种引擎的访问。
+
+## 列表引擎
+
+>https://api.openai.com/v1/engines
+
+列出当前可用的（未经微调的）模型，并提供有关每个模型的基本信息，例如所有者和可用性。
+
+```
+curl https://api.openai.com/v1/engines \
+  -H "Authorization: Bearer $OPENAI_API_KEY"
+
+```
+
+```
+{
+  "data": [
+    {
+      "id": "engine-id-0",
+      "object": "engine",
+      "owner": "organization-owner",
+      "ready": true
+    },
+    {
+      "id": "engine-id-2",
+      "object": "engine",
+      "owner": "organization-owner",
+      "ready": true
+    },
+    {
+      "id": "engine-id-3",
+      "object": "engine",
+      "owner": "openai",
+      "ready": false
+    },
+  ],
+  "object": "list"
+}
+
+```
+
+## 检索引擎
+
+>https://api.openai.com/v1/engines/{engine_id}
+
+检索模型实例，提供基本信息，如所有者和可用性。
+
+### 路径参数
+
+---
+engine_id 字符串 必填
+
+用于此请求的引擎ID。
+
+```
+curl https://api.openai.com/v1/engines/text-davinci-003 \
+  -H "Authorization: Bearer $OPENAI_API_KEY"
+
+```
+
+```
+{
+  "id": "text-davinci-003",
+  "object": "engine",
+  "owner": "openai",
+  "ready": true
+}
+
+```
+
+# 参数细节
+
+频率和存在惩罚
+
+在Completions API中发现的频率和存在惩罚可以用于减少采样重复令牌序列的可能性。它们通过直接修改logits（未归一化的对数概率）来进行加法贡献。
+
+```
+mu[j] -> mu[j] - c[j] * alpha_frequency - float(c[j] > 0) * alpha_presence
+```
+
+其中：
+
+- `mu[j]` 是第 j 个标记的对数概率
+-` c[j]` 是在当前位置之前采样该标记的次数
+- `float(c[j] > 0)` 如果 `c[j] > 0` 则为1，否则为0
+- `alpha_frequency` 是频率惩罚系数
+- `alpha_presence` 是存在惩罚系数
+
+正如我们所看到的，存在惩罚是一次性的加法贡献，适用于所有已经被采样至少一次的标记，并且频率惩罚是与特定标记已经被采样多少次成比例的贡献。
+
+如果目标只是稍微减少重复采样，则惩罚系数的合理值约为0.1到1。如果目标是强烈抑制重复，则可以将系数增加到2，但这可能会明显降低样本质量。可以使用负值来增加重复出现的可能性。
+
+
+
+
+
+
+
+
+
+
 
 
 
